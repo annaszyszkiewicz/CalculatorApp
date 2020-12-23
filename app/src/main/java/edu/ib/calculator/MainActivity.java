@@ -10,25 +10,40 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+/**
+ * klasa zarzadzająca interfejsem graficznym aplikacji wyświetlającej kalkulator
+ */
 public class MainActivity extends AppCompatActivity {
 
     Calculate x = new Calculate();
     private String operation = "";
     private boolean previousStep = true;
 
+    /**
+     * metoda pozwalajaca odtworzyc dzialanie aplikacji, np. po zmianie ulozenia ekranu
+     *
+     * @param savedInstanceState zachowanie ostatnich danych aplikacji
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             x.setValue(savedInstanceState.getString("value"));
             operation = savedInstanceState.getString("operation");
             previousStep = savedInstanceState.getBoolean("operation");
         }
     }
 
-    public void calculate(View view){
+    /**
+     * metoda zmieniajaca widoczny tekst po kliknieciu "="
+     * dodaje wybrana ostatnio liczbe oraz  "=" do zapisanego rownania
+     * oraz powoduje wykonanie wybranego wcześniej działania
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
+    public void calculate(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
 
@@ -74,6 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknięciu "<--"
+     * usuwa ostatnia widoczna cyfre jesli wynikiem operacji nie jest tylko 0
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void undo(View view) {
         TextView textInput = (TextView) findViewById(R.id.txtInput);
 
@@ -85,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "CE"
+     * usuwa ostatni wynik dzialan
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void clear(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -94,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
             textPrevious.setText("");
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "C"
+     * resetuje dotychczasowe operacje i ich wyniki
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void clearAll(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -104,6 +137,13 @@ public class MainActivity extends AppCompatActivity {
         operation = "";
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "+"
+     * dodaje wybrana ostatnio liczbe oraz  "+" do zapisanego rownania
+     * oraz wykonuje działanie dodawania
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void addition(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -137,6 +177,13 @@ public class MainActivity extends AppCompatActivity {
         previousStep = true;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "-"
+     * dodaje wybrana ostatnio liczbe oraz  "-" do zapisanego rownania
+     * oraz wykonuje działanie odejmowania
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void subtraction(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -170,6 +217,13 @@ public class MainActivity extends AppCompatActivity {
         previousStep = true;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "/"
+     * dodaje wybrana ostatnio liczbe oraz  "-" do zapisanego rownania
+     * oraz wykonuje działanie dzielenia
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void division(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -203,6 +257,13 @@ public class MainActivity extends AppCompatActivity {
         previousStep = true;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "*"
+     * dodaje wybrana ostatnio liczbe oraz  "*" do zapisanego rownania
+     * oraz wykonuje działanie mnożenia
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void multiplication(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -236,6 +297,12 @@ public class MainActivity extends AppCompatActivity {
         previousStep = true;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "%"
+     * zamienia wybrana ostatnio liczbę na procent tej liczby (dzieli liczbę przez 100)
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void percent(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -245,6 +312,13 @@ public class MainActivity extends AppCompatActivity {
         textPrevious.setText(textInput.getText());
     }
 
+
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "1/x"
+     * zamienia wybrana ostatnio liczbę odwrotnosc tej liczby
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void reciprocal(View view) {
         TextView textInput = (TextView) findViewById(R.id.txtInput);
 
@@ -252,6 +326,12 @@ public class MainActivity extends AppCompatActivity {
         previousStep = false;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "x^2"
+     * zamienia wybrana ostatnio liczbę na druga potege tej liczby
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void toSquare(View view) {
         TextView textInput = (TextView) findViewById(R.id.txtInput);
 
@@ -259,6 +339,12 @@ public class MainActivity extends AppCompatActivity {
         previousStep = false;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "sqrt(x)"
+     * zamienia wybrana ostatnio liczbę na pierwiastek drugiego stopnia tej liczby
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void extractRoot(View view) {
         TextView textInput = (TextView) findViewById(R.id.txtInput);
 
@@ -266,6 +352,12 @@ public class MainActivity extends AppCompatActivity {
         previousStep = false;
     }
 
+    /**
+     * metoda zmieniajaca widoczny teskt po kliknieciu "+/-"
+     * zamienia znak wybranej licbzy na przeciwny
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void changeOfSign(View view) {
         TextView textInput = (TextView) findViewById(R.id.txtInput);
 
@@ -273,6 +365,11 @@ public class MainActivity extends AppCompatActivity {
         previousStep = false;
     }
 
+    /**
+     * dopisuje "0" do wpisywanej liczby lub zamienia wynik na "0"
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void zero(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -290,6 +387,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * dopisuje cyfrę do wpisywanej liczby lub zamienia wynik na wybraną cyfrę
+     *
+     * @param view przenosi informacje o wywołaniu metody
+     */
     public void write(View view) {
         TextView textPrevious = (TextView) findViewById(R.id.txtPrevious);
         TextView textInput = (TextView) findViewById(R.id.txtInput);
@@ -300,7 +402,7 @@ public class MainActivity extends AppCompatActivity {
             textPrevious.setText("");
         }
 
-        switch ( btn.getText().toString()) {
+        switch (btn.getText().toString()) {
             case "1":
                 if (textInput.getText().equals("0") || previousStep)
                     textInput.setText("1");
@@ -378,7 +480,11 @@ public class MainActivity extends AppCompatActivity {
         previousStep = false;
     }
 
-
+    /**
+     * metoda pozwalajaca zapisac stan aplikacji
+     *
+     * @param outState zachowanie ostatnich danych aplikacji
+     */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
